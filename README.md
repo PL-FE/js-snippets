@@ -25,3 +25,44 @@ const res = [...source1.filter(x => !sB.has(x)), ...source2.filter(x => !sA.has(
 
 // [1,2,3,4], [2,3,4,5] => [1,5]
 ```
+
+### Decimal Rounding
+小数取整
+```js
+const n = 2.4 | 0
+
+// 2.4 | 0 => 2
+```
+
+### Date Range
+日期区间
+```js
+// 今天
+const start = new Date(new Date(new Date().toLocaleDateString()).getTime())
+const end = new Date(new Date(new Date().toLocaleDateString()).getTime()+24*60*60*1000-1)
+
+// Thu May 28 2020 00:00:00 GMT+0800 (中国标准时间)
+// Thu May 28 2020 23:59:59 GMT+0800 (中国标准时间)
+```
+```js
+// 本周
+const start = new Date(new Date(new Date().toLocaleDateString()).getTime())
+const end = new Date(new Date(new Date().toLocaleDateString()).getTime()+24*60*60*1000-1)
+// 0 为 周日，此处直接设为 7 代表周日
+let day = start.getDay() || 7
+let noeDay = 3600 * 24 * 1000
+let startWeek = new Date(start - (7 - day) * noeDay)
+// 原式为 end + (7 - day) * noeDay，加法会自动被拼接字符串
+let endWeek =new Date(end - (- 7 + day) * noeDay)
+
+// Mon May 25 2020 00:00:00 GMT+0800 (中国标准时间)
+// Sun May 31 2020 23:59:59 GMT+0800 (中国标准时间)
+```
+```js
+// 本月
+const start = new Date(new Date(new Date().toLocaleDateString()).setDate(1))
+const end = new Date(new Date(start).setMonth(start.getMonth() + 1) - 1)
+
+// Fri May 01 2020 00:00:00 GMT+0800 (中国标准时间)
+// Sun May 31 2020 23:59:59 GMT+0800 (中国标准时间)
+```
